@@ -1622,15 +1622,6 @@
     return data.currentcurates = obj.curates;
   };
 
-  announceCurate = function(obj) {
-    return API.sendChat("/em: " + obj.user.username + " loves this song!");
-  };
-
-  handleUserJoin = function(user) {
-    data.userJoin(user);
-    data.users[user.id].updateActivity();
-    return API.sendChat("/em: " + user.username + " has joined the Room!");
-  };
 
   handleNewSong = function(obj) {
     var songId;
