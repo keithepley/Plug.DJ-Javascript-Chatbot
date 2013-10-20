@@ -90,16 +90,6 @@
       }
     };
 
-    settings.prototype.userJoin = function(u) {
-      var userIds, _ref;
-      userIds = Object.keys(this.users);
-      if (_ref = u.id, __indexOf.call(userIds, _ref) >= 0) {
-        return this.users[u.id].inRoom(true);
-      } else {
-        this.users[u.id] = new User(u);
-        return this.voteLog[u.id] = {};
-      }
-    };
 
     settings.prototype.setInternalWaitlist = function() {
       var boothWaitlist, fullWaitList, lineWaitList;
@@ -1680,7 +1670,7 @@
     msg = chat.message.toLowerCase();
     responses = ["Good idea @{beggar}!  Don't earn your fans or anything thats so yesterday", "Guys @{beggar} asked us to fan him!  Lets all totally do it! ಠ_ಠ", "srsly @{beggar}? ಠ_ಠ", "@{beggar}.  Earning his fans the good old fashioned way.  Hard work and elbow grease.  A true american."];
     r = Math.floor(Math.random() * responses.length);
-    if (msg.indexOf('fan me') !== -1 || msg.indexOf('fan for fan') !== -1 || msg.indexOf('fan pls') !== -1 || msg.indexOf('fan4fan') !== -1 || msg.indexOf('add me to fan') !== -1) {
+    if (msg.indexOf('fan me') !== -1 || msg.indexOf('fan i fan') !== -1 || msg.indexOf('fan pls') !== -1 || msg.indexOf('fan4fan') !== -1 || msg.indexOf('add me to fan') !== -1 || msg.indexOf('f4n y f4n') !== -1 || msg.indexOf('fan y fan') !== -1 ||) {
       return API.sendChat(responses[r].replace("{beggar}", chat.from));
     }
   };
