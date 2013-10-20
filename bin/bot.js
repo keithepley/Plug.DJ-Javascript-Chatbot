@@ -81,9 +81,6 @@
     };
 
     settings.prototype.newSong = function() {
-      this.totalVotingData.woots += this.currentwoots;
-      this.totalVotingData.mehs += this.currentmehs;
-      this.totalVotingData.curates += this.currentcurates;
       this.setInternalWaitlist();
       this.currentsong = API.getMedia();
       if (this.currentsong !== null) {
@@ -656,14 +653,6 @@
       return API.sendChat(msg);
     };
 
-    newSongsCommand.prototype.memberChannels = ["JitterStep", "MistaDubstep", "DubStationPromotions", "UndergroundDubstep", "JesusDied4Dubstep", "DarkstepWarrior", "BombshockDubstep", "Sharestep"];
-
-    newSongsCommand.prototype.channels = ["BassRape", "Mudstep", "WobbleCraftDubz", "MonstercatMedia", "UKFdubstep", "DropThatBassline", "Dubstep", "VitalDubstep", "AirwaveDubstepTV", "EpicNetworkMusic", "NoOffenseDubstep", "InspectorDubplate", "ReptileDubstep", "MrMoMDubstep", "FrixionNetwork", "IcyDubstep", "DubstepWeed", "VhileMusic", "LessThan3Dubstep", "PleaseMindTheDUBstep", "ClownDubstep", "TheULTRADUBSTEP", "DuBM0nkeyz", "DubNationUK", "TehDubstepChannel", "BassDropMedia", "USdubstep", "UNITEDubstep"];
-
-    newSongsCommand.prototype.artists = ["Skrillex", "Doctor P", "Excision", "Flux Pavilion", "Knife Party", "Krewella", "Rusko", "Bassnectar", "Nero", "Deadmau5", "Borgore", "Zomboy"];
-
-    return newSongsCommand;
-
   })(Command);
 
   whyWootCommand = (function(_super) {
@@ -710,8 +699,7 @@
 
     themeCommand.prototype.functionality = function() {
       var msg;
-      msg = "Any type of Bass Music is allowed here. Including Dubstep, Complextro, Drum and Bass, ";
-      msg += "Garage, Breakbeat, Hardstyle, Moombahton, HEAVY EDM, House, Electro, and Trance!!";
+    
       return API.sendChat(msg);
     };
 
@@ -761,14 +749,12 @@
 
     roomHelpCommand.prototype.functionality = function() {
       var msg1, msg2;
-      msg1 = "Welcome to the Dubstep Den! Create a playlist and populate it with songs from either YouTube or Soundcloud.  ";
-      msg1 += "Click the 'Join Waitlist' button and wait your turn to play music. Most electronic music allowed, type '/theme' for specifics.";
-      msg2 = "Stay active while waiting to play your song or I'll remove you.  Play good quality music that hasn't been played recently (check room history).  ";
-      msg2 += "Avoid over played artists like Skrillex. Ask a mod if you're unsure about your song choice";
+      msg1 = "Welcome to the Absolut Lithuania! Create a playlist and populate it with songs from either YouTube or Soundcloud.  ";
+      msg1 += "Click the 'Join Waitlist' button and wait your turn to play music. Enjoy Th3dvinas Plug.Dj Room";
       API.sendChat(msg1);
-      return setTimeout((function() {
-        return API.sendChat(msg2);
-      }), 750);
+      return setTimeout((function()
+      
+      ), 750);
     };
 
     return roomHelpCommand;
