@@ -1,12 +1,12 @@
 class afksCommand extends Command
 	init: ->
-		@command='!afks'
+		@command='.afks'
 		@parseType='exact'
 		@rankPrivelege='user'
 
 	functionality: ->
 		msg = ''
-		djs = API.getDJs() 
+		djs = API.getWaitList()
 		for dj in djs
 			now = new Date()
 			djAfk = now.getTime() - data.users[dj.id].getLastActivity().getTime()

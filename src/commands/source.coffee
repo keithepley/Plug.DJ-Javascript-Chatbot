@@ -1,6 +1,6 @@
 class sourceCommand extends Command
 	init: ->
-		@command=['/source', '/sourcecode', '/author']
+		@command=['.source', '.sourcecode', '.author']
 		@parseType='exact'
 		@rankPrivelege='user'
 

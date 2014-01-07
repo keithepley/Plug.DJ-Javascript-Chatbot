@@ -1,10 +1,10 @@
 class popCommand extends Command
 	init: ->
-		@command='!pop'
+		@command='.pop'
 		@parseType='exact'
 		@rankPrivelege='mod'
 
 	functionality: ->
-		djs = API.getDJs()
+		djs = API.getWaitList()
 		popDj = djs[djs.length-1]
 		API.moderateRemoveDJ(popDj.id)

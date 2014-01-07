@@ -46,7 +46,7 @@ class Command
 			else return true
 
 	commandMatch: ->
-		msg = @msgData.message
+		msg = @msgData.message.toLowerCase()
 		if(typeof @command == 'string')
 			if(@parseType == 'exact')
 				if(msg == @command)

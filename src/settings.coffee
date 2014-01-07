@@ -8,7 +8,7 @@ class settings
 	currentwoots: 0
 	currentmehs: 0
 	currentcurates: 0
-	roomUrlPath: null#for lock. 'dubstep-den' in 'http://plug.dj/dubstep-den/'
+	roomUrlPath: 'i-the-80-s-and-90-s-1' # for lock, eg:'room-name' in 'http://plug.dj/room-name/'
 	internalWaitlist: []
 	userDisconnectLog: []
 	voteLog: {}
@@ -20,8 +20,8 @@ class settings
 		woots:0
 		mehs:0
 		curates:0
-	pupScriptUrl: ''
-	afkTime: 12*60*1000#Time without activity to be considered afk. 12 minutes in milliseconds
+	pupScriptUrl: "http://plugdj.dev/bot.js"
+	afkTime: 12*60*1000 #Time without activity to be considered afk. 12 minutes in milliseconds
 	songIntervalMessages: [
 		{interval:15,offset:0,msg:"I'm a bot!"}
 	]
@@ -35,15 +35,21 @@ class settings
 		window.location.pathname.replace(/\//g,'')
 
 	newSong: ->
-		@totalVotingData.woots += @currentwoots
-		@totalVotingData.mehs += @currentmehs
-		@totalVotingData.curates += @currentcurates
-
 		@setInternalWaitlist()
 
 		@currentsong = API.getMedia()
 		if @currentsong != null
 			return @currentsong
+		else
+			return false
+
+	newHistory: ->
+		@lastsong = API.getHistory()[0]
+		if @lastsong != null
+			@totalVotingData.woots += @lastsong.room.positive
+			@totalVotingData.mehs += @lastsong.room.negative
+			@totalVotingData.curates += @lastsong.room.curates
+			return @lastsong
 		else
 			return false
 
@@ -56,9 +62,8 @@ class settings
 			@voteLog[u.id] = {}
 
 	setInternalWaitlist: =>
-		boothWaitlist = API.getDJs().slice(1)#remove current dj
 		lineWaitList = API.getWaitList()
-		fullWaitList = boothWaitlist.concat(lineWaitList)
+		fullWaitList = lineWaitList.unshift(API.getDJ());
 		@internalWaitlist = fullWaitList
 
 	activity: (obj) ->
@@ -81,34 +86,13 @@ class settings
 		clearInterval(@afkInterval)
 
 	lockBooth: (callback=null)->
-		$.ajax({
-		    url: "http://plug.dj/_/gateway/room.update_options",
-		    type: 'POST',
-		    data: JSON.stringify({
-		        service: "room.update_options",
-		        body: [@roomUrlPath,{"boothLocked":true,"waitListEnabled":true,"maxPlays":1,"maxDJs":5}]
-		    }),
-		    async: this.async,
-		    dataType: 'json',
-		    contentType: 'application/json'
-		}).done ->
+		API.moderateLockWaitList(true).done ->
 			if callback?
 				callback()
 
 	unlockBooth: (callback=null)->
-		$.ajax({
-		    url: "http://plug.dj/_/gateway/room.update_options",
-		    type: 'POST',
-		    data: JSON.stringify({
-		        service: "room.update_options",
-		        body: [@roomUrlPath,{"boothLocked":false,"waitListEnabled":true,"maxPlays":1,"maxDJs":5}]
-		    }),
-		    async: this.async,
-		    dataType: 'json',
-		    contentType: 'application/json'
-		}).done ->
+    API.moderateLockWaitList(false).done ->
 			if callback?
 				callback()
-
 
 data = new settings()

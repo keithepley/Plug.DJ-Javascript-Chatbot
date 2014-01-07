@@ -1,12 +1,9 @@
 class rulesCommand extends Command
 	init: ->
-		@command='!rules'
+		@command='.rules'
 		@parseType='startsWith'
-		@rankPrivelege='user'
+		@rankPrivelege='bouncer'
 
 	functionality: ->
-		msg = "1) Play good sound quality music. "
-		msg += "2) Don't replay a song on the room history. 3) Max song limit 8 minutes. "
-		msg += "4) DO NOT GO AWAY FROM KEYBOARD ON DECK! Please WOOT on DJ Booth and respect your fellow DJs!"
+		msg = "Room rules: http://tinyurl.com/80sand90s. Basics? Woot while on line and spin anything released 1978-2002 and under 7 minutes"
 		API.sendChat(msg)
-		

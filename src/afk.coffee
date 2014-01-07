@@ -23,8 +23,8 @@ afkCheck = ->
           timeSinceLastWarning = now.getTime() - lastWarned.getTime()
           oneMinute = 1*60*1000
           if timeSinceLastWarning > oneMinute
-            DJs = API.getDJs()
-            if DJs.length > 0 and DJs[0].id != user.getUser().id
+            DJs = API.getWaitList()
+            if DJs.length > 0
               API.sendChat "@"+user.getUser().username+", you had 2 warnings. Please stay active by chatting or voting."
               API.moderateRemoveDJ id
               user.warn()

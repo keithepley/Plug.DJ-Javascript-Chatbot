@@ -32,7 +32,8 @@ class User
 		return @afkWarningCount
 
 	getIsDj: =>
-		DJs = API.getDJs()
+		DJs = API.getWaitList()
+		DJs = DJs.unshift(API.getDJ())
 		for dj in DJs
 			if @user.id == dj.id
 				return true
@@ -48,6 +49,19 @@ class User
 
 	inRoom: (online)=>
 		@isInRoom = online
+
+	fan: ->
+		$.ajax({
+			url: "http://plug.dj/_/gateway/user.follow",
+			type: 'POST',
+			data: JSON.stringify({
+				service: "user.follow",
+				body: [@user.id]
+			}),
+			async: this.async,
+			dataType: 'json',
+			contentType: 'application/json'
+		})
 
 	updateVote: (v)=>
 		if @isInRoom

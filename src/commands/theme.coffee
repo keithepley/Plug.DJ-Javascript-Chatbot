@@ -1,10 +1,10 @@
 class themeCommand extends Command
 	init: ->
-		@command='!theme'
+		@command='.theme'
 		@parseType='startsWith'
 		@rankPrivelege='user'
 
 	functionality: ->
-		msg = "Any type of Bass Music is allowed here. Including Dubstep, Complextro, Drum and Bass, "
-		msg += "Garage, Breakbeat, Hardstyle, Moombahton, HEAVY EDM, House, Electro, and Trance!!"
+		msg = "Any genre of music released from 1978-2002.  Please keep selections under 7 minutes."
+		msg += "Use .rules for full details."
 		API.sendChat(msg)

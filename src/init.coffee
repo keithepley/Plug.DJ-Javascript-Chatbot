@@ -1,5 +1,5 @@
 pupOnline = ->
-	API.sendChat "Bot Online!"
+	API.sendChat "/me is alive!"
 
 populateUserData = ->
 	users = API.getUsers()
@@ -9,8 +9,8 @@ populateUserData = ->
 	return
 
 initEnvironment = ->
-	document.getElementById("button-vote-positive").click()
-	document.getElementById("button-sound").click()
+	document.getElementById("woot").click()
+	document.getElementById("chat-sound").click()
 	# Playback.streamDisabled = true
 	# Playback.stop()
 
@@ -21,4 +21,5 @@ initialize = ->
   initHooks()
   data.startup()
   data.newSong()
+  data.newHistory()
   data.startAfkInterval()
