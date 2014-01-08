@@ -25,4 +25,3 @@ class helpCommand extends Command
 						msg += cc + ', '
 		msg = msg.substring(0,msg.length-2)
 		API.sendChat msg
-		

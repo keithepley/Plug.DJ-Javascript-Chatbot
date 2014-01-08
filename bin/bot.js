@@ -908,7 +908,7 @@
 
     feedbackCommand.prototype.functionality = function() {
       var msg;
-      msg = 'Have an idea for the room, our bot, or an event?  Awesome! Let a mod know and we\'ll get started on it!';
+      msg = 'Have an idea for the room, our bot, or an event?  Awesome! Let me know at beavisbot@gmail.com and I\'ll see what I can do!';
       return API.sendChat(msg);
     };
 
@@ -1400,7 +1400,8 @@
 
     sourceCommand.prototype.functionality = function() {
       var msg;
-      msg = 'Backus wrote me in CoffeeScript.  A generalized version of me should be available on github soon!';
+      msg = 'Backus wrote me in CoffeeScript: https://github.com/backus/Plug.DJ-Javascript-Chatbot - ';
+      msg += 'I am running on a fork maintained by AvatarKava: https://github.com/AvatarKava/Plug.DJ-Javascript-Chatbot';
       return API.sendChat(msg);
     };
 
