@@ -9,6 +9,7 @@ cmds = [
 	#downloadCommand,
 	feedbackCommand,
 	forceSkipCommand,
+	forceWootCommand,
 	helpCommand,
 	lockCommand,
 	mentionCommand,

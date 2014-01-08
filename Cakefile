@@ -19,6 +19,7 @@ appFiles  = [
 	'commands/download'
 	'commands/feedback'
 	'commands/force_skip'
+	'commands/force_woot'
 	'commands/help'
 	'commands/lock'
 	'commands/mention'

@@ -14,6 +14,7 @@ class settings
 	voteLog: {}
 	seshOn: false
 	forceSkip: false
+	forceWoot: false
 	seshMembers: []
 	launchTime: null
 	totalVotingData:
@@ -34,22 +35,19 @@ class settings
 	getRoomUrlPath: =>
 		window.location.pathname.replace(/\//g,'')
 
-	newSong: ->
+	newSong: (obj)->
 		@setInternalWaitlist()
 
-		@currentsong = API.getMedia()
-		if @currentsong != null
-			return @currentsong
-		else
-			return false
+		if obj?
+			console.log(obj)
+			@totalVotingData.woots += obj.lastPlay.score.positive
+			@totalVotingData.mehs += obj.lastPlay.score.negative
+			@totalVotingData.curates += obj.lastPlay.score.curates
+		console.log(@totalVotingData)
 
-	newHistory: ->
-		@lastsong = API.getHistory()[0]
-		if @lastsong != null
-			@totalVotingData.woots += @lastsong.room.positive
-			@totalVotingData.mehs += @lastsong.room.negative
-			@totalVotingData.curates += @lastsong.room.curates
-			return @lastsong
+		@currentsong = API.getMedia()
+		if @currentsong?
+			return @currentsong
 		else
 			return false
 
@@ -63,7 +61,7 @@ class settings
 
 	setInternalWaitlist: =>
 		lineWaitList = API.getWaitList()
-		fullWaitList = lineWaitList.unshift(API.getDJ());
+		fullWaitList = lineWaitList.unshift(API.getDJ())
 		@internalWaitlist = fullWaitList
 
 	activity: (obj) ->

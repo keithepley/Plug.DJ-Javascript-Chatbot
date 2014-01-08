@@ -1,5 +1,5 @@
 pupOnline = ->
-	API.sendChat "/me is alive!"
+	API.sendChat "/me By the Power of Grayskull... I HAVE THE POWER!!!!!"
 
 populateUserData = ->
 	users = API.getUsers()
@@ -21,5 +21,4 @@ initialize = ->
   initHooks()
   data.startup()
   data.newSong()
-  data.newHistory()
   data.startAfkInterval()

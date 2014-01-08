@@ -14,6 +14,7 @@ class settings
 	voteLog: {}
 	seshOn: false
 	forceSkip: false
+	forceWoot: false
 	seshMembers: []
 	launchTime: null
 	totalVotingData:
@@ -34,22 +35,19 @@ class settings
 	getRoomUrlPath: =>
 		window.location.pathname.replace(/\//g,'')
 
-	newSong: ->
+	newSong: (obj)->
 		@setInternalWaitlist()
 
-		@currentsong = API.getMedia()
-		if @currentsong != null
-			return @currentsong
-		else
-			return false
+		if obj?
+			console.log(obj)
+			@totalVotingData.woots += obj.lastPlay.score.positive
+			@totalVotingData.mehs += obj.lastPlay.score.negative
+			@totalVotingData.curates += obj.lastPlay.score.curates
+		console.log(@totalVotingData)
 
-	newHistory: ->
-		@lastsong = API.getHistory()[0]
-		if @lastsong != null
-			@totalVotingData.woots += @lastsong.room.positive
-			@totalVotingData.mehs += @lastsong.room.negative
-			@totalVotingData.curates += @lastsong.room.curates
-			return @lastsong
+		@currentsong = API.getMedia()
+		if @currentsong?
+			return @currentsong
 		else
 			return false
 
@@ -63,7 +61,7 @@ class settings
 
 	setInternalWaitlist: =>
 		lineWaitList = API.getWaitList()
-		fullWaitList = lineWaitList.unshift(API.getDJ());
+		fullWaitList = lineWaitList.unshift(API.getDJ())
 		@internalWaitlist = fullWaitList
 
 	activity: (obj) ->
@@ -188,7 +186,7 @@ class RoomHelper
 		votes
 
 pupOnline = ->
-	API.sendChat "/me is alive!"
+	API.sendChat "/me By the Power of Grayskull... I HAVE THE POWER!!!!!"
 
 populateUserData = ->
 	users = API.getUsers()
@@ -210,7 +208,6 @@ initialize = ->
   initHooks()
   data.startup()
   data.newSong()
-  data.newHistory()
   data.startAfkInterval()
 
 afkCheck = ->
@@ -584,6 +581,24 @@ class forceSkipCommand extends Command
 			else if param == 'disable'
 				data.forceSkip = false
 				API.sendChat "Forced skipping disabled."
+		
+
+class forceWootCommand extends Command
+	init: ->
+		@command='.forcewoot'
+		@parseType='startsWith'
+		@rankPrivelege='mod'
+
+	functionality: ->
+		msg = @msgData.message
+		if msg.length > 11 #command switch included
+			param = msg.substr(11)
+			if param == 'enable'
+				data.forceWoot = true
+				API.sendChat "Forced wooting enabled."
+			else if param == 'disable'
+				data.forceWoot = false
+				API.sendChat "Forced wooting disabled."
 		
 
 class helpCommand extends Command
@@ -1141,6 +1156,7 @@ cmds = [
 	#downloadCommand,
 	feedbackCommand,
 	forceSkipCommand,
+	forceWootCommand,
 	helpCommand,
 	lockCommand,
 	mentionCommand,
@@ -1187,14 +1203,13 @@ announceCurate = (obj) ->
 handleUserJoin = (user) ->
     data.userJoin(user)
     data.users[user.id].updateActivity()
-    console.log(data.users[user.id])
-    data.users[user.id].fan()
-    if data.users[user.id].user.relationship < 2
-        API.sendChat "/em Welcome to the room, " + user.username + " :wave:"
+    if API.getUser(user.id).relationship < 2
+        data.users[user.id].fan()
+        API.sendChat ":wave: Welcome to the community, @" + user.username + "! Community Rules: http://tinyurl.com/80sand90s"
 
 handleNewSong = (obj) ->
     data.intervalMessages()
-    data.newSong()
+    data.newSong(obj)
     document.getElementById("woot").click()
 
     if data.forceSkip # skip songs when song is over
