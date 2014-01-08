@@ -5,5 +5,5 @@ class feedbackCommand extends Command
 		@rankPrivelege='user'
 
 	functionality: ->
-		msg = 'Have an idea for the room, our bot, or an event?  Awesome! Let a mod know and we\'ll get started on it!'
+		msg = 'Have an idea for the room, our bot, or an event?  Awesome! Let me know at beavisbot@gmail.com and I\'ll see what I can do!'
 		API.sendChat(msg)
